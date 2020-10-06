@@ -32,9 +32,11 @@ MyComplex MyComplex::operator*(const MyComplex& c) const
     return MyComplex(re * c.re - im * c.im, im * c.re + re * c.im);
 }
 
-MyComplex MyComplex::operator=(const MyComplex& c)
+MyComplex& MyComplex::operator=(const MyComplex& c)
 {
-    return MyComplex(c.re, c.im);
+    re = c.re;
+    im = c.im;
+    return *this;
 }
 
 MyComplex MyComplex::operator/(const MyComplex& c) const

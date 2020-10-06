@@ -5,8 +5,9 @@ using namespace std;
 
 int main()
 {
-	MyComplex a(1, 5);
+	MyComplex a(1);
 	MyComplex b;
-	cout << a.conj();
+	b = a;
+	cout << -b;
 	return 0;
 }
