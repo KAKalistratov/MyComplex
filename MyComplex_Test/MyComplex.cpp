@@ -95,15 +95,26 @@ MyComplex MyComplex::polar(double r, double grad)
 
 MyComplex MyComplex::POW(int k)
 {
-    MyComplex RESULT = 1;
-    if (k == 0) { return 1; }
-    else if (k >= 1)
+    try
     {
-        for (int i = 1; i <= k; i++)
-        {
-            RESULT = RESULT * MyComplex(re, im);
+        if (k < 0) {
+            throw 1;
         }
-        return RESULT;
+        MyComplex RESULT = 1;
+        if (k == 0) { return 1; }
+        else if (k >= 1)
+        {
+            for (int i = 1; i <= k; i++)
+            {
+                RESULT = RESULT * MyComplex(re, im);
+            }
+            return RESULT;
+        }
+    }
+    catch (int i)
+    {
+        cout << "Error #" << i << "! This method raises a number only to a positive integer power." << endl;
+        return *this;
     }
 }
 
@@ -111,6 +122,36 @@ MyComplex MyComplex::SQRT()
 {
     double im_tmp = sqrt((-re + ABS()) / 2);
     return MyComplex(im / (2 * im_tmp), im_tmp);
+}
+
+MyComplex MyComplex::operator+=(const MyComplex& c)
+{
+    re += c.re;
+    im += c.im;
+    return *this;
+}
+
+MyComplex MyComplex::operator-=(const MyComplex& c)
+{
+    re -= c.re;
+    im -= c.im;
+    return *this;
+}
+
+MyComplex MyComplex::operator*=(const MyComplex& c)
+{
+    double tmp = im * c.re + re * c.im;
+    re = re * c.re - im * c.im;
+    im = tmp;
+    return *this;
+}
+
+MyComplex MyComplex::operator/=(const MyComplex& c)
+{
+    double tmp = (im * c.re - re * c.im) / (c.re * c.re + c.im * c.im);
+    re = (re * c.re + im * c.im) / (c.re * c.re + c.im * c.im);
+    im = tmp;
+    return *this;
 }
 
 ostream& operator<<(ostream& out, const MyComplex& c)
@@ -171,4 +212,29 @@ bool operator!=(const double& x, const MyComplex& c)
 {
     if (x != c.re || c.im != 0) { return true; }
     else { return false; }
+}
+
+MyComplex operator+=(const double& x, MyComplex& c)
+{
+    c.re += x;
+    return c;
+}
+
+MyComplex operator-=(const double& x, MyComplex& c)
+{
+    c.re -= x;
+    return c;
+}
+
+MyComplex operator*=(const double& x, MyComplex& c)
+{
+    c.re *= x;
+    c.im *= x;
+    return c;
+}
+
+MyComplex operator/=(const double& x, MyComplex& c)
+{
+    MyComplex y(x);
+    return y /= c;
 }

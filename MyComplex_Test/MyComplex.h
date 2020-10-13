@@ -34,8 +34,16 @@ public:
 
 	double ARG(); // метод, возвращающий аргумент комплексного числа (в радианах) в интервале [-Pi, Pi]
 	static MyComplex polar(double r, double grad); // конструктор (метод), создающий комплексное число по его модулю (r) и аргументу (grad). Аргумент вводится в градусах!
-	MyComplex POW(int k); // метод, возводящий комплексное число в целочисленную степень k (k > 0)!
+	MyComplex POW(int k); // метод, возводящий комплексное число в целочисленную степень k (k > 0)! Для отрицательной степени получим сообщение об ошибке и первоначальное число.
 	MyComplex SQRT(); // метод, возвращающий один из квадратных корней комплексного числа
+	MyComplex operator+=(const MyComplex& c); // оператор +=
+	friend MyComplex operator+=(const double& x, MyComplex& c); // оператор += для вещественного += комплексного чисел
+	MyComplex operator-=(const MyComplex& c); // оператор -=
+	friend MyComplex operator-=(const double& x, MyComplex& c); // оператор -= для вещественного += комплексного чисел
+	MyComplex operator*=(const MyComplex& c); // оператор *=
+	friend MyComplex operator*=(const double& x, MyComplex& c); // оператор *= для вещественного += комплексного чисел
+	MyComplex operator/=(const MyComplex& c); // оператор /=
+	friend MyComplex operator/=(const double& x, MyComplex& c); // оператор /= для вещественного += комплексного чисел
 
 };
 
